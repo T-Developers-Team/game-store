@@ -1,10 +1,12 @@
-import React, {Fragment } from 'react'
+import React, {Fragment, useState } from 'react'
 import placeholderImgUrl from '../../../assets/logo-placeholder.png'
 import { FaGamepad } from 'react-icons/fa'
 import { MdArrowDropDown } from 'react-icons/md'
 import { Menu, Transition } from '@headlessui/react';
 
 const HeaderComponent = () => {
+  const [openMenuTrigger, setOpenMenuTrigger] = useState(false)
+
   return (
     <header className='bg-zinc-800 text-gray-400 text-xs'>
       <div className="max-w-5xl mx-auto flex">
@@ -19,14 +21,12 @@ const HeaderComponent = () => {
             <Menu as="div" className="relative inline-block text-left">
               {({ open }) => (
                 <>
-                  <div>
-                    <Menu.Button className="hover:text-gray-300 flex items-center">
-                      Language
-                      <MdArrowDropDown
-                        className="text-xl mt-0.5"
-                      />
-                    </Menu.Button>
-                  </div>
+                  <Menu.Button as="div" className="hover:text-gray-300 flex items-center ">
+                    Language
+                    <MdArrowDropDown
+                      className="text-xl mt-0.5"
+                    />
+                  </Menu.Button>
 
                   {/* Items to render when button is clicked */}
                   <Transition
@@ -39,14 +39,14 @@ const HeaderComponent = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="bg-zinc-900 absolute right-0 w-56 mt-2 origin-top-right divide-y divide-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="px-1 py-1">
+                    <Menu.Items className="bg-zinc-900 absolute right-0 origin-top-right divide-y divide-gray-300 rounded drop-shadow-md w-20 mt-1 focus:outline-0">
+                      <div className="p-1.5 hover:bg-zinc-800">
                         <Menu.Item>
                           <p>Spanish</p>
                         </Menu.Item>
                       </div>
 
-                      <div className="px-1 py-1">
+                      <div className="p-1.5 hover:bg-zinc-800">
                         <Menu.Item>
                         <p>English</p>
                         </Menu.Item>
@@ -60,7 +60,52 @@ const HeaderComponent = () => {
           <section className='flex gap-3 items-center pt-2'>
             <nav>
               <ul className='flex text-sm uppercase gap-4 font-medium'>
-                <li className='hover:text-gray-300'>Store</li>
+                <Menu as="li" className="relative inline-block text-left">
+                  {({ open }) => (<>
+                      <Menu.Button as="div" className="hover:text-gray-300" onMouseEnter={() => setOpenMenuTrigger(true)}>
+                        Store
+                      </Menu.Button>
+
+                      {/* Items to render when button is clicked */}
+                      <Transition
+                        as={Fragment}
+                        show={openMenuTrigger}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="bg-zinc-900 absolute left-0 origin-top-left rounded drop-shadow-md w-24 mt-1 text-xs focus:outline-0 font-normal tracking-wide" onMouseLeave={() => setOpenMenuTrigger(false)}>
+                          <div className="px-2 py-1.5 hover:bg-zinc-800">
+                            <Menu.Item>
+                              <p>Home</p>
+                            </Menu.Item>
+                          </div>
+
+                          <div className="px-2 py-1.5 hover:bg-zinc-800">
+                            <Menu.Item>
+                              <p>Wishlist</p>
+                            </Menu.Item>
+                          </div>
+
+                          <div className="px-2 py-1.5 hover:bg-zinc-800">
+                            <Menu.Item>
+                              <p>News</p>
+                            </Menu.Item>
+                          </div>
+
+                          <div className="px-2 py-1.5 hover:bg-zinc-800">
+                            <Menu.Item>
+                              <p>Stats</p>
+                            </Menu.Item>
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </>
+                  )}
+                </Menu>
                 <li className='hover:text-gray-300'>Community</li>
                 <li className='hover:text-gray-300'>About</li>
                 <li className='hover:text-gray-300'>Support</li>
