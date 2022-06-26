@@ -7,7 +7,7 @@ const LayoutView = () => {
     <div>
       <Header />
 
-      <main className="mt-14 bg-slate-800">
+      <main className="bg-slate-800 py-10">
         <Outlet />
       </main>
 

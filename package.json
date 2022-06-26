@@ -10,6 +10,7 @@
   "dependencies": {
     "flowbite": "^1.4.7",
     "flowbite-react": "^0.0.27",
+    "@headlessui/react": "^1.6.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.4.0",
