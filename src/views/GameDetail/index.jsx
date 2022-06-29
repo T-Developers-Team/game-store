@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../utils/constants";
 import { FaUserAlt } from "react-icons/fa"
+import { UserGroupIcon } from "@heroicons/react/solid";
 
 const txtLabelLinks = [
   "Visit the website", "View update history", "Read related news", "View discussions", "Find Community Groups"
@@ -39,10 +40,10 @@ const GameDetailView = () => {
   }, [id]);
 
   const formatDate = (date) => {
-    let datetoFormat = new Date(date)
-    let formatOptions = { day: "2-digit", month: "short", year: "numeric" }
-    return datetoFormat.toLocaleDateString('en-US', formatOptions)
-  }
+    let datetoFormat = new Date(date);
+    let formatOptions = { day: "2-digit", month: "short", year: "numeric" };
+    return datetoFormat.toLocaleDateString("en-US", formatOptions);
+  };
 
   const splitParagraphs = (paragraph, separator) => {
     const arrParagraph = paragraph.split(separator)
@@ -74,7 +75,7 @@ const GameDetailView = () => {
           {/*Right Section*/}
           <div className="col-span-1 pl-4 text-base text-gray-300">
             <figure className="pb-4">
-              <img className="h-full w-full" src={game.portrait}/>
+              <img className="h-full w-full" src={game.portrait} />
             </figure>
             <div className="pr-4">
               <p className="text-justify pb-4">{game.desc}</p>
@@ -104,15 +105,21 @@ const GameDetailView = () => {
 
       <section className="max-w-5xl mx-auto mt-6">
         <div className="grid grid-cols-3 gap-3">
-
-          {/*Left Section*/}
+          {/* Left Side | Purchase section */}
           <div className="col-span-2">
-            <div className="h-24 p-4 rounded-md bg-gradient-to-r from-slate-700 to-slate-500 mb-16">
-              <span className="text-2xl text-white font-semibold">Purchase {game.title}</span>
-              <div className="h-8 bg-green-400 grid justify-items-stretch">
-                <div className="h-full bg-red-100 justify-self-end flex">
-                  <div className="h-full bg-black">$/{game.price}</div>
-                  <button className='hover:bg-sky-500/50 bg-sky-500/25 text-sky-300 rounded px-4 py-1.5 hover:text-white'>Add to cart</button>
+            {/* Purchase Card */}
+            <div className="h-24 p-4 mb-8 rounded-md bg-gradient-to-r from-slate-700 to-slate-500 relative">
+              <span className="text-2xl text-white font-semibold">
+                Buy {game.title}
+              </span>
+              <div className="h-8 grid justify-items-stretch absolute -bottom-3 right-4">
+                <div className="h-full p-0.5 bg-black rounded justify-self-end flex">
+                  <div className="text-cyan-400 text-justify my-auto mx-2">
+                    $/{game.price}
+                  </div>
+                  <button className="bg-gradient-to-r from-lime-500 to-lime-700 hover:from-lime-400 hover:via-lime-500 hover:to-lime-600 text-white rounded px-2.5 py-1">
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>
