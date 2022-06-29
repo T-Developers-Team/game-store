@@ -21,8 +21,8 @@ const FooterComponent = () => {
           <a href='#' className='hover:text-gray-300 text-gray-400'>Jobs</a> |
           <a href='#' className='hover:text-gray-300 text-gray-400'>Launcher Distribution</a> |
           <a href='#' className='hover:text-gray-300 text-gray-400'>Support</a> |
-          <a href='#' className='hover:text-gray-300 text-gray-400 flex items-center'><AiFillFacebook/>Facebook</a> |
-          <a href='#' className='hover:text-gray-300 text-gray-400 flex items-center'><AiFillTwitterSquare/>Twitter</a>
+          <a href='#' className='hover:text-gray-300 text-gray-400 flex items-center gap-0.5'><AiFillFacebook/>Facebook</a> |
+          <a href='#' className='hover:text-gray-300 text-gray-400 flex items-center gap-0.5'><AiFillTwitterSquare/>Twitter</a>
         </div>
       </div>
     </footer>
