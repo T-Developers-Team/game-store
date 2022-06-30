@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../../utils/constants";
 import { FaUserAlt } from "react-icons/fa"
-import { UserGroupIcon } from "@heroicons/react/solid";
 
 const txtLabelLinks = [
   "Visit the website", "View update history", "Read related news", "View discussions", "Find Community Groups"
@@ -11,10 +10,35 @@ const txtLabelLinks = [
 const GameDetailView = () => {
   const { id } = useParams();
   const [game, setGame] = useState({img: [], tags: [], categories: []});
+  const [genreGames, setGenreGames] = useState([]);
   const [selectedImg, setSelectedImg] = useState()
 
 
   useEffect(() => {
+    const getGenreGames = async (genre) => {
+      const PRODUCT_URL = `${API_URL}/games?genre=${genre}`;
+
+      const PRODUCTS_REQUEST_PARAMS = {
+        metho: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE",
+        },
+      };
+      const response = await fetch(PRODUCT_URL, PRODUCTS_REQUEST_PARAMS);
+      const gamesData = await response.json();
+      let gamesDataFiltered = []
+
+      for (let index = 0; index < gamesData.length; index++) {
+        if (gamesData[index]._id != id) {
+          gamesDataFiltered.push(gamesData[index])
+        }
+      }
+      setGenreGames(gamesDataFiltered.slice(0,3))
+    }
+
     const getGame = async () => {
       const PRODUCT_URL = `${API_URL}/games/find/${id}`;
 
@@ -29,11 +53,10 @@ const GameDetailView = () => {
       };
       const response = await fetch(PRODUCT_URL, PRODUCTS_REQUEST_PARAMS);
       const gameData = await response.json();
-      console.log("game", gameData);
 
       setGame(gameData);
       setSelectedImg(gameData.img[0]);
-      console.log(gameData.about)
+      getGenreGames(gameData.genre)
     };
 
     getGame();
@@ -136,14 +159,17 @@ const GameDetailView = () => {
               <span className="font-semibold uppercase">MORE {game.genre} GAMES</span>
               <div className="my-1.5 pt-0.5 bg-gradient-to-r from-sky-400/50"/>
               <div className="grid grid-cols-3 gap-1">
-                <div className="bg-black/25 hover:bg-zinc-900/25 p-4 text-sm cursor-pointer">
-                  <figure className="mb-1">
-                    <img className="w-full h-full" src={game.portrait}/>
-                  </figure>
-                  <p className="text-gray-400 mb-1">{game.title}</p>
-                  <p className="text-xs text-sky-300 float-right">S/.{game.price}</p>
-                </div>
-
+                {genreGames.map((genreGame, index) => (
+                  <Link key={index} reloadDocument={true} to={`/game/${genreGame._id}`}>
+                    <div className="bg-black/25 hover:bg-zinc-900/25 p-4 text-sm">
+                      <figure className="mb-1">
+                        <img className="w-full h-full" src={genreGame.portrait}/>
+                      </figure>
+                      <p className="text-gray-400 mb-1">{genreGame.title}</p>
+                      <p className="text-xs text-sky-300 text-right">S/.{genreGame.price}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
