@@ -13,7 +13,6 @@ const GameDetailView = () => {
   const [genreGames, setGenreGames] = useState([]);
   const [selectedImg, setSelectedImg] = useState()
 
-
   useEffect(() => {
     const getGenreGames = async (genre) => {
       const PRODUCT_URL = `${API_URL}/games?genre=${genre}`;
@@ -88,7 +87,7 @@ const GameDetailView = () => {
             </figure>
             <div className="grid grid-cols-5 gap-2 py-2">
               {
-                game.img.map((img, index) => <figure key={index} className={`bg-green-300 ${selectedImg === img ? 'border-4 border-white' : ''}`} onClick={() => setSelectedImg(img)}>
+                game.img.map((img, index) => <figure key={index} className={`cursor-pointer bg-green-300 ${selectedImg === img ? 'border-4 border-white' : ''}`} onClick={() => setSelectedImg(img)}>
                   <img className="w-full h-full" src={img}/>
                 </figure>)
               }
@@ -138,7 +137,7 @@ const GameDetailView = () => {
               <div className="h-8 grid justify-items-stretch absolute -bottom-3 right-4">
                 <div className="h-full p-0.5 bg-black rounded justify-self-end flex">
                   <div className="text-cyan-400 text-justify my-auto mx-2">
-                    $/{game.price}
+                    $ {game.price}
                   </div>
                   <button className="bg-gradient-to-r from-lime-500 to-lime-700 hover:from-lime-400 hover:via-lime-500 hover:to-lime-600 text-white rounded px-2.5 py-1">
                     Add to cart
@@ -165,8 +164,8 @@ const GameDetailView = () => {
                       <figure className="mb-1">
                         <img className="w-full h-full" src={genreGame.portrait}/>
                       </figure>
-                      <p className="text-gray-400 mb-1">{genreGame.title}</p>
-                      <p className="text-xs text-sky-300 text-right">S/.{genreGame.price}</p>
+                      <p className="text-gray-400 mb-1 truncate">{genreGame.title}</p>
+                      <p className="text-xs text-sky-300 text-right">${genreGame.price}</p>
                     </div>
                   </Link>
                 ))}

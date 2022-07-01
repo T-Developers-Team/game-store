@@ -3,6 +3,7 @@ import placeholderImgUrl from '../../../assets/logo-placeholder.png'
 import { FaGamepad } from 'react-icons/fa'
 import { MdArrowDropDown } from 'react-icons/md'
 import { Menu, Transition } from '@headlessui/react';
+import { Link } from 'react-router-dom';
 
 const HeaderComponent = () => {
   const [openMenuTrigger, setOpenMenuTrigger] = useState(false)
@@ -11,7 +12,9 @@ const HeaderComponent = () => {
     <header className='bg-zinc-800 text-gray-400 text-xs'>
       <div className="max-w-5xl mx-auto flex ">
         <figure className="md:pl-0 pr-8 py-4 pl-8">
-          <img src={placeholderImgUrl} className="max-h-20"/>
+          <Link to="/">
+            <img src={placeholderImgUrl} className="max-h-20"/>
+          </Link>
         </figure>
         <div className="grow">
           <section className='flex gap-3 justify-end items-center py-2'>
@@ -80,7 +83,7 @@ const HeaderComponent = () => {
                         <Menu.Items className="bg-zinc-900 absolute left-0 origin-top-left rounded drop-shadow-md w-24 text-xs focus:outline-0 font-normal tracking-wide">
                           <div className="px-2 py-1.5 hover:bg-zinc-800">
                             <Menu.Item>
-                              <p>Home</p>
+                              <Link to="/">Home</Link>
                             </Menu.Item>
                           </div>
 

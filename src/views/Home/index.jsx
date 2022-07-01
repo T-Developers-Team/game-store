@@ -31,32 +31,34 @@ const HomeView = () => {
 };
 
 const OutstandingSection = ({ outstandingGames }) => (
-  <div className="w-4/5 p-2 mx-auto">
-    <section className="mb-10">
-      <h2 className="text-gray-200 text-3xl mb-4">
+  <div className="max-w-5xl mx-auto">
+    <section className="mb-8">
+      <h2 className="text-gray-200 text-3xl">
         Outstanding and Recomended
       </h2>
 
       <div className="h-96">
         <Carousel>
           {outstandingGames.map((game, index) => (
-            <div key={index} className="grid grid-cols-8 h-full">
-              <figure className="col-span-5 h-full bg-red-200">
-                <img className="h-full w-full object-cover" src={game.img[0]} />
+            <div key={index} className="grid grid-cols-8 bg-black/25 gap-4">
+              <figure className="col-span-5 my-auto">
+                <Link to={`/game/${game._id}`}>
+                  <img className="h-full w-full" src={game.portrait} />
+                </Link>
               </figure>
 
-              <div className="col-span-3 h-full py-2 bg-green-200">
-                <h3 className="text-2xl pl-4 mb-2 truncate">{game.title}</h3>
+              <div className="col-span-3 h-full py-3 text-white mr-4">
+                <h3 className="text-2xl mb-2 truncate">{game.title}</h3>
 
-                <div className="grid grid-cols-2 auto-rows-min min-h-52 gap-2">
-                  {game.img.slice(0, 5).map((img, index) => (
-                    <div key={index} className="h-36 w-full bg-red-200">
+                <div className="grid grid-cols-2 auto-rows-min gap-2 mb-2">
+                  {game.img.slice(0, 4).map((img, index) => (
+                    <div key={index} className=" w-full">
                       <img className="w-full h-full object-cover" src={img} />
                     </div>
                   ))}
                 </div>
 
-                <div className="pl-4 text-xl">{game.price}$</div>
+                <div className="text-xl float-right">${game.price}</div>
               </div>
             </div>
           ))}
@@ -68,14 +70,18 @@ const OutstandingSection = ({ outstandingGames }) => (
       <h2 className="text-gray-200 text-3xl mb-4">The most sold</h2>
 
       <div className="grid grid-cols-4 gap-3">
-        {outstandingGames.slice(0, 16).map((game, index) => (
-          <div className="bg-blue-300 w-full" key={index}>
-            <Link to={`/game/${game._id}`}>
-              <figure className="w-full h-32 bg-red-400">
-                <img className="h-full w-full object-cover" src={game.img[0]}/>
-              </figure>
-              <div className="h-6 bg-blue-400">
-                <span className="justify-self-end">{game.price}$</span>
+        {outstandingGames.slice(0, 12).map((game, index) => (
+          <div className="w-full" key={index}>
+            <Link key={index} reloadDocument={true} to={`/game/${game._id}`}>
+              <div className="text-sm">
+                <figure className="mb-1">
+                  <img className="w-full h-full" src={game.portrait}/>
+                </figure>
+                <div className=" grid justify-items-stretch">
+                  <div className="justify-self-end bg-black/25 px-2 py-0.5">
+                    <p className="text-gray-300 text-right">${game.price}</p>
+                  </div>
+                </div>
               </div>
             </Link>
           </div>
